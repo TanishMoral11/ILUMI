@@ -13,3 +13,9 @@
 .externalNativeBuild
 .cxx
 local.properties
+.kotlin/
+build/
+*.log
+*.txt
+*.orig
+*.rej

@@ -1,0 +1,15 @@
+--- JewelryPlacementEngine.kt
++++ JewelryPlacementEngine.kt
+@@ -102,6 +102,11 @@
+         
+         lastPosition = finalPosition
+         lastScale = finalScale
+ 
+-        return Pair(finalPosition, finalScale)
++        // Prevent NaN or singular matrices (Scale = 0) which cause Filament Engine crashes (SIGABRT)
++        val safeScale = if (finalScale.isNaN() || finalScale < 0.001f) 0.001f else finalScale
++        if (finalPosition.x.isNaN() || finalPosition.y.isNaN() || finalPosition.z.isNaN()) {
++            return null
++        }
++        return Pair(finalPosition, safeScale)
+     }
